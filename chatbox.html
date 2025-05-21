@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Automotivo</title>
+  <style>
+ body {
+  font-family: Arial, sans-serif;
+  margin: 30px;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+#chatbox {
+  height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+#inputArea {
+  display: flex;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+input[type="text"]:focus {
+  border-color: #28a745;
+}
+
+button {
+  padding: 12px 18px;
+  background: #28a745;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #218838;
+}
+
+.msg {
+  margin-bottom: 12px;
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  line-height: 1.5;
+}
+
+.user {
+  background-color: #e7f1ff;
+  color: #007bff;
+  align-self: flex-end;
+  text-align: right;
+  margin-left: auto;
+}
+
+.bot {
+  background-color: #d4f8dc;
+  color: #28a745;
+  align-self: flex-start;
+  margin-right: auto;
+}
+
+.btn-voltar-header {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ff6f61;
+  color: white;
+  padding: 12px 18px;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(255, 111, 97, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-voltar-header:hover {
+  background-color: #e85a4f;
+  box-shadow: 0 6px 12px rgba(255, 111, 97, 0.5);
+}
+
+  </style>
+</head>
+<body>
+<a href="index.html" class="btn-voltar-header">← Voltar para Home</a>   
+<h2>🔧 Assistente IA Automotivo</h2>
+<div id="chatbox"></div>
+<div id="inputArea">
+  <input type="text" id="userInput" placeholder="Pergunte sobre mecânica, problemas, etc...">
+  <button onclick="sendMessage()">Enviar</button>
+</div>
+
+<script>
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    const chatbox = document.getElementById("chatbox");
+    chatbox.innerHTML += `<div class="msg user">Você: ${msg}</div>`;
+    input.value = "";
+    chatbox.scrollTop = chatbox.scrollHeight;
+
+    // Resposta automática simulada
+    let resposta = gerarRespostaAutomatica(msg);
+    setTimeout(() => {
+      chatbox.innerHTML += `<div class="msg bot">Assistente: ${resposta}</div>`;
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }, 500); // pequena espera para simular "pensando"
+  }
+
+  function gerarRespostaAutomatica(pergunta) {
+    pergunta = pergunta.toLowerCase();
+
+    if (pergunta.includes("oi")) return "Olá, sou a IA do CAR-LÃO automotivo, como posso ajudar?";
+    if(/troca.*óleo/.test(pergunta)) return "Recomendo trocar o óleo a cada 10.000 km.";
+    if (/pastilh/.test(pergunta)) return "Verifique as pastilhas de freio e fique atento a ruídos ou ao nível do fluido.";
+    if (/motor.*falhand/.test(pergunta)) return "Podem haver diversas causas. Recomendo nossa revisão completa.";
+    if (/carro.*(não liga|nao liga|não está ligando|nao está ligando)/.test(pergunta)) 
+    return "Verifique a bateria e veja se existe algum fio solto ou desconectado.";
+    if (/acendeu.*(luz.*injeção|luz da injeção)/.test(pergunta)) 
+    return "Recomendo parar o carro imediatamente e levá-lo a uma oficina para realizar a leitura com scanner e identificar o erro da injeção eletrônica.";
+
+
+    
+    return "Desculpe, não entendi bem. Poderia reformular sua pergunta?";
+  }
+</script>
+
+</body>
+</html>
